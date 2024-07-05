@@ -1,0 +1,234 @@
+<style> 
+        button {
+            border:none;
+            padding: 10px;
+           margin-left:20px;
+           background: var(--blue);
+           color: var(--light);
+           border-radius: 20px;
+        }
+        .box_sp{
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+       
+        th{
+            padding: 12px 0px;
+            border-bottom: 1px solid gray;
+        }
+        .thongtin{
+            margin: 20px;
+            padding: 15px 0px;
+            display: block;
+            background-color: white;
+        }
+        .table_sp{
+            width: 47%;
+            margin: 0 auto;
+            background-color:#f9f9f9;
+            border-radius: 7px;
+            box-shadow: 1px 2px 1px gray;
+          
+        }
+        .table_sp table{
+            width: 100%;
+        }
+        tr{
+            text-align: left;
+        }
+        input{
+            padding: 5px 20px;
+            background: var(--blue);
+            color: var(--light);
+            border-radius: 20px;
+            border: none;
+        }
+        
+</style>
+ </style><!-- CONTENT -->
+<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			
+			<form action="#">
+				<div class="form-input">
+					<!-- <input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button> -->
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Quản lý sản phẩm  </h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Quản lý sản phẩm </a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Chi tiết  sản phẩm</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Tải xuống PDF</span>
+				</a>
+			</div>
+
+                
+
+		 <div class="box_sp">
+         <div class="table_sp">
+            <div class=thongtin>
+            <h2>Thông tin sản phâm</h2>
+            </div>
+            <table>
+                           
+                
+                           <?php
+                               $listsp_bl=loadsp_bl($_GET['id']); 
+                                   // echo '<pre>';
+                                   // print_r($listsp_bl);
+       
+                             if($listsp_bl){
+                               $hinhpath = "upload/" . $listsp_bl['anhsp']; 
+                               if (is_file($hinhpath)) {
+                                   $hinh = "<img src='" . $hinhpath . "' height='80'>";
+                               } else {
+                                   $hinh = "no photo"; 
+                               }
+                               echo '
+                                        <tr>
+                                         <th>Nhãn hiệu</th>
+                                         <th>'.$listsp_bl['nhan_hieu'].'</th>
+                                        </tr>
+                                        <tr>
+                                        <th>Tên sản phẩm</th>
+                                        <th>'.$listsp_bl['tensp'].'</th>
+                                       </tr>
+                                       <tr>
+                                         <th>Hình ảnh sản phẩm</th>
+                                         <th>'.$hinh.'</th>
+                                        </tr>
+                                        <tr>
+                                         <th>Giá sản phẩm</th> 
+                                         <th>'.$listsp_bl['gia'].'</th>
+                                       
+                                        </tr>
+                                        <tr>
+                                         <th>Mô tả sản phẩm</th>
+                                         <th>'.$listsp_bl['mota'].'</th>
+                                        </tr>
+                                        <tr>
+                                         <th> Màu sắc</th>
+                                        <th>'.$listsp_bl['mau_sac'].'</th>
+                                        </tr>
+                                        <tr>
+                                         <th>Bộ nhớ </th>
+                                       <th>'.$listsp_bl['bo_nho'].'</th>
+                                        </tr>
+                                        <tr>
+                                         <th> Pin  </th>
+                                        <th>'.$listsp_bl['pin'].'</th>
+                                        </tr>
+                                        <tr>
+                                         <th> Camera </th>
+                                        <th>'.$listsp_bl['camera'].'</th>
+                                        </tr>
+                                        <tr>
+                                         <th>Ngày xuất xưởng </th>
+                                        <th>'.$listsp_bl['ngay_xuat_xuong'].'</th>
+                                        </tr>
+       
+                                   ';
+                             }
+                           ?>
+       
+                       </table>
+            
+        </div>
+
+        <!--  binh luan                 -->
+        <div class="table_sp">   
+        <div class=thongtin>
+            <h2>Bình luận sản phẩm</h2>
+            </div>
+                   <table>
+                               <?php
+
+                                    $list_bl=load_bl($_GET['id']);
+                                    if($list_bl){
+                                    foreach($list_bl as $sanpham){
+                                        extract($sanpham);
+                                        // echo '<pre>';
+                                        // print_r($sanpham);
+                                        $xoatk="index.php?act=xoa_bl&id=".$id;
+
+                                    if (is_file($hinhpath)) {
+                                        $hinh = "<img src='" . $hinhpath . "' height='80'>";
+                                    } else {
+                                        $hinh = "no photo"; 
+                                    }
+                                    echo '
+                                            <tr>
+                                            <th>Tên người bình luận</th>
+                                            <th>'.$ten_nguoidung.'</th>    
+                                            </tr>
+                                            <tr>
+                                                <th>Tên sản phẩm</th>
+                                                <th>'.$tensp.'</th> 
+                                            </tr>
+                                            <tr>
+                                                <th>Hình ảnh người bình luận</th>
+                                                <th>'.$hinh.'</th>
+                                            </tr>
+                                            <tr>
+                                            <th>Ngày bình luận</th>
+                                            <th>'.$ngay_bl.'</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Nội dung</th>
+                                                <th>'.$noidung.'</th>
+                                            </tr>
+                                            
+                                    
+                                            <td>
+                                            
+                                                    <a href="'.$xoatk.'"> <input type="button"  onclick="confirm(`Bạn có muốn xóa`)" value="Xóa"></a>
+                                            </td>
+                                            
+                                        
+                                        ';
+                                    
+                                    }
+
+
+                                    }
+                                        
+                                    ?>
+                   </table>
+
+                 </div>                  
+         </div>    
+         
+                        <div class="row_btn02" style="margin:20px;">
+                               
+                               <a href="index.php?act=list_sp"> <button type="button" class="next">Danh sách</button></a>
+                           </div>
+          
+        
+
+                  
+                </main>
+                <!-- MAIN -->
+</section>
+            <!-- CONTENT -->

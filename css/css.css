@@ -1,0 +1,25 @@
+:root{
+    --white-color:#fff;
+    --black-color:#000;
+    --text-color:#333;
+}
+*{
+    margin:0 auto;
+    padding:0;
+    box-sizing:border-box;
+}
+
+  /* CSS CHO PHẦN HEADER */
+
+
+   /* css cho phần nội dung */
+
+.boxleft{
+    margin-top: 1000px;
+    width:75%;
+}
+/* CSS cho phần hinh anh */
+.row.no-gutters .col {
+    padding-left: 0;
+    padding-right: 0;
+}
